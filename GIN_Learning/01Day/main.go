@@ -16,18 +16,18 @@ import (
 //}
 
 func main() {
-	r := gin.Default()
-
-	r.GET("/someJSON", func(c *gin.Context) {
-		data := map[string]interface{}{
-			"lang": "GO语言",
-			"tag":  "hello",
+	router := gin.Default()
+	router.GET("/someJSON", func(context *gin.Context) {
+		context.Header("Content-Type", "application/json")
+		date := map[string]interface{}{
+			"lang":        "GO语言",
+			"tag":         "..!#",
+			"age":         18,
+			"isDeveloper": true,
 		}
 
-		// will output : {"lang":"GO\u8bed\u8a00","tag":"\u003cbr\u003e"}
-		c.AsciiJSON(http.StatusOK, data)
+		context.AsciiJSON(http.StatusOK, date)
 	})
 
-	// Listen and serve on 0.0.0.0:8080
-	r.Run(":8080")
+	router.Run(":8080")
 }
