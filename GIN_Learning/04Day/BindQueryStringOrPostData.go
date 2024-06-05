@@ -30,5 +30,6 @@ func startPage(c *gin.Context) {
 		log.Println(person.Birthday)
 	}
 
+	log.Println(c.Request.URL.Query(), "Hello Partner")
 	c.String(200, "Success")
 }
