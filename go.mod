@@ -6,6 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-playground/validator/v10 v10.20.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	golang.org/x/crypto v0.23.0
 	golang.org/x/sync v0.7.0
 	gorm.io/driver/mysql v1.5.6
