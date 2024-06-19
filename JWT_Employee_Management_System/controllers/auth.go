@@ -135,7 +135,6 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// Update the user details (not working properly)
 func UpdateUser(c *gin.Context) {
 	var user models.User
 	id := c.Param("id")
