@@ -2,7 +2,7 @@ package main
 
 import (
 	"SimplejwtProject/project_emp_semifinal/controllers"
-	"SimplejwtProject/project_emp_semifinal/router"
+	middleware "SimplejwtProject/project_emp_semifinal/router"
 	"SimplejwtProject/project_emp_semifinal/services"
 	"github.com/gin-gonic/gin"
 )
@@ -14,21 +14,21 @@ func main() {
 	router.POST("/signup", controllers.Signup)
 	router.POST("login", controllers.Login)
 
-	//router.GET("/employees", controllers.GetAllEmployees)
-	//router.GET("/employee/id/:id", controllers.GetEmployeesById)
-	//router.GET("/employee/username/:username", controllers.GetEmployeeByUsername)
-	//router.DELETE("/employee/:id", controllers.DeleteEmployeeById)
-	//router.PUT("/employee/:id", controllers.UpdateEmployeeById)
-	//
-	//protected := router.Group("/protected")
-	//protected.Use(middleware.AuthMiddleware())
-	//{
-	//	protected.GET("/employees", controllers.GetAllEmployees)
-	//	protected.GET("/employee/id/:id", controllers.GetEmployeesById)
-	//	protected.GET("/employee/username/:username", controllers.GetEmployeeByUsername)
-	//	protected.DELETE("/employee/:id", controllers.DeleteEmployeeById)
-	//	protected.PUT("/employee/:id", controllers.UpdateEmployeeById)
-	//}
+	router.GET("/employees", controllers.GetAllEmployees)
+	router.GET("/employee/id/:id", controllers.GetEmployeesById)
+	router.GET("/employee/username/:username", controllers.GetEmployeeByUsername)
+	router.DELETE("/employee/:id", controllers.DeleteEmployeeById)
+	router.PUT("/employee/:id", controllers.UpdateEmployeeById)
+
+	protected := router.Group("/protected")
+	protected.Use(middleware.AuthMiddleware())
+	{
+		protected.GET("/employees", controllers.GetAllEmployees)
+		protected.GET("/employee/id/:id", controllers.GetEmployeesById)
+		protected.GET("/employee/username/:username", controllers.GetEmployeeByUsername)
+		protected.DELETE("/employee/:id", controllers.DeleteEmployeeById)
+		protected.PUT("/employee/:id", controllers.UpdateEmployeeById)
+	}
 
 	admin := router.Group("/admin")
 	admin.Use(middleware.AuthMiddleware())
@@ -52,4 +52,5 @@ func main() {
 	if err != nil {
 		return
 	}
+
 }

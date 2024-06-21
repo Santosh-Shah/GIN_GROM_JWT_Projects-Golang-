@@ -109,9 +109,18 @@ func Login(c *gin.Context) {
 
 	emp := services.GetEmployeeByUsername(logEmp.Username)
 
+	err := bcrypt.CompareHashAndPassword([]byte(emp.Password), []byte(logEmp.Password))
+
+	if logEmp.Username != emp.Username && err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
+
 	signedString, err := middleware.TokenGenerator(logEmp.Username, logEmp.Password, emp.Role)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token"})
+		c.Abort()
+		return
 	}
 
 	c.IndentedJSON(http.StatusOK, gin.H{"Your Token": signedString})
