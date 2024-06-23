@@ -2,13 +2,13 @@ package main
 
 import (
 	"SimplejwtProject/project_emp_semifinal/controllers"
-	middleware "SimplejwtProject/project_emp_semifinal/router"
-	"SimplejwtProject/project_emp_semifinal/services"
+	"SimplejwtProject/project_emp_semifinal/repo"
+	"SimplejwtProject/project_emp_semifinal/router"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	services.InitDB()
+	repo.InitDB()
 
 	router := gin.Default()
 	router.POST("/signup", controllers.Signup)
